@@ -1,15 +1,15 @@
 // Módulos
-const express = require("express");
-const app = express();
-const path = require("path");
-const methodOverride = require("method-override");
-const session = require('express-session');
+const express           = require("express");
+const app               = express();
+const path              = require("path");
+const methodOverride    = require("method-override");
+const session           = require('express-session');
 //las cookies se almacenan en el navegador
-const cookies = require("cookie-parser");
+const cookies           = require("cookie-parser");
 
-var indexRouter = require('./src/routes/home');
-var usersRouter = require('./src/routes/users');
-let productsRouter = require('./src/routes/products');
+var indexRouter         = require('./src/routes/home');
+var usersRouter         = require('./src/routes/users');
+let productsRouter      = require('./src/routes/products');
 const userLoggedMiddleware = require('./src/middlewares/userLoggedMiddleware');
 
 //Configuración

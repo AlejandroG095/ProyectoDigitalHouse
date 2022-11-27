@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD -->
+<%- include('../partials/headUsers.ejs') %>
+<%- include('../partials/headProducts.ejs') %>
+
+
+<body class="bodyUsers">
+    <!-- HEADER -->
+    <%- include('../partials/header.ejs') %>
+    <!-- Container -->
+    <% users.forEach(user => { %>
+    <main id="mainUsers">
+        <div class="contenedorUsers"> 
+            <div class="img-contenedor">
+                <img id="producto" src="/imgUsers/<%= user.avatar %> ">
+            </div>
+            <div class="description">
+                <div class="titulo-descripcion">
+                    <div class="formulario2">
+                        <div class="inputBxUser">
+                            <label for="name">Nombre:</label>
+                            <div class="inputIcon">
+                                <p><%= user.name %></p>
+                            </div>
+                        </div>
+                        <div class="inputBxUser">
+                            <label for="lastName">Apellido:</label>
+                            <div class="inputIcon">
+                                <p><%= user.lastName %></p>
+                            </div>
+                        </div>
+                        <div class="inputBxUser">
+                            <label for="email">Email:</label>
+                            <div class="inputIcon">
+                                <p><%= user.email %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                <button class="button-cesta">
+                    <a href="/users/edit/<%= user.id %> " class="enlaceCarrito">Editar Perfil</a>
+                </button>
+                </div>
+        
+        </div>
+    </main>
+    <% }) %>
+
+	<!-- //Container -->
+    <%- include('../partials/footer.ejs') %>
+</body>
+</html>

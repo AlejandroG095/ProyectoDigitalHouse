@@ -16,7 +16,7 @@
             <img id="producto" src="/imgUsers/<%= user.avatar %> ">
           </div>
           <div class="description">
-            <h2>Bienvenido, <%= user.name %> 😁</h2>
+            <h2>Bienvenido, <%= user.user %> 😁</h2>
             <div class="titulo-descripcion">
                 <div class="formulario2">
                     <div class="inputBxUser">
@@ -40,9 +40,17 @@
                 </div>
             </div>
             <div>
+            <div class="botones">
               <button class="button-cesta">
-                <a href="/products/carrito/<%= user.email %> " class="enlaceCarrito">Editar Perfil</a>
+                <a href="/users/edit/<%= user.id %> " class="enlaceCarrito">Editar Perfil</a>
               </button>
+              <button class="button-cesta">
+                <a href="/register/new" class="enlaceCarrito">Crear usuario</a>
+              </button>
+              <button class="button-cesta">
+                <a href="/users/list" class="enlaceCarrito">Listar usuarios</a>
+              </button>
+            </div>
             </div>
           </div>
         </div>

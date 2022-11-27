@@ -1,9 +1,12 @@
+//Módulos
 var express = require('express');
 var router = express.Router();
 const path = require('path');
 const multer = require('multer');
-const { createUsersValidation } = require('../validations/usersValidation');
+
+//Módulos propios
 const usersController = require('../controllers/usersController');
+const { createUsersValidation, editUsersValidation } = require('../validations/usersValidation');
 const guestMiddleware = require('../middlewares/guestMiddleware');
 const authMiddleware = require('../middlewares/authMiddleware');
 
@@ -47,7 +50,14 @@ router.get('/login', guestMiddleware, usersController.login);
 router.post('/login', usersController.loginProcess);
 //Perfil de usuario
 router.get('/profile', authMiddleware, usersController.profile);
-router.put('/profile/edit', authMiddleware, usersController.editUser);
+//Editar Perfil
+router.get('/edit/:id', authMiddleware, usersController.editUser);
+router.put('/edit/:id', authMiddleware, upload.single("avatar"), editUsersValidation, usersController.update);
+//Listar usuarios
+router.get('/list', authMiddleware, usersController.list);
+//Registrar usuarios en sesion
+router.get('/register/new', authMiddleware, usersController.sessionRegister);
+router.put('/register/new', authMiddleware, usersController.sessionCreate);
 
 //Logout
 router.get('/logout', authMiddleware, usersController.logout);

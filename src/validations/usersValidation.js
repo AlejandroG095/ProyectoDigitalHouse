@@ -36,4 +36,30 @@ module.exports = {
                 return extensionesAceptadas.includes(extension);
             }).withMessage('Imagen invalida, debe de ser .jpg .png .jpeg'),
     ],
+    editUsersValidation: [
+        body('user')
+            .notEmpty()
+            .withMessage('El campo Usuario es obligatorio'),
+        body('name')
+            .notEmpty()
+            .withMessage('El campo Nombre es obligatorio'),
+        body('lastName')
+            .notEmpty()
+            .withMessage('El campo Apellido es obligatorio'),
+        body('email')
+            .notEmpty()
+            .withMessage('El campo Email es obligatorio')
+            .bail()
+            .isEmail()
+            .withMessage('Debes de escribir un formato de correo Valido'),
+        body('avatar')
+        .custom(function(value, {req}){
+            if(req.file){
+                const extensionesAceptadas = ['.jpg', '.png', '.jpeg'];
+                const extension = path.extname(req.file.originalname);
+                return extensionesAceptadas.includes(extension);
+            }
+            return true;
+        }).withMessage('Imagen invalida, debe de ser .jpg .png .jpeg')
+    ]
 }

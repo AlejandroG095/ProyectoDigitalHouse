@@ -67,7 +67,15 @@ main{
     padding: 15px;
     width: 100%;
 }
-
+#mainUsers{
+    width: 100%;
+    background-image: none;
+}
+.bodyUsers{
+    margin: 0;
+    background-image: url('/img/erik-mclean-LSPUdV6IWsY-unsplash.jpg');
+    background-size: cover;
+}
 
 /* BARRA DE NAVEGACION */
 
@@ -137,6 +145,19 @@ main{
     /* overflow: scroll; */
     justify-content: unset;
 }
+.contenedorUsers{
+    background-color: rgba(1000, 1000, 1000, 0.75);
+    display: flex;
+    margin: 8%;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    border: 4px solid #2f528f;
+    flex-direction: column;
+    height: fit-content;
+    justify-content: unset;
+}
 
 .contenedor-carrito{
     background-color: rgba(1000, 1000, 1000, 0.75);
@@ -187,6 +208,10 @@ main{
     border-bottom: 1px solid red;
     margin: 5px;
     padding: 15px;
+}
+
+.botones{
+    text-align: center;
 }
 
 .button-quiero-coleccion{

@@ -1,68 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- HEAD -->
-<%- include('../partials/headUsers.ejs') %>
-<%- include('../partials/headProducts.ejs') %>
+  <!-- HEAD -->
+  <%- include('../partials/headUsers.ejs') %>
 
-
-<body>
+  <body>
     <!-- HEADER -->
     <%- include('../partials/header.ejs') %>
-    <!-- Container -->
+    <link rel="stylesheet" href="/css/ABMproducts.css">
 
-    <main>
-      <form action="/users/profile/<%= user.id %>?_method=PUT" enctype="multipart/form-data" method="post">
-
-        <div class="contenedor">
-          <div class="img-contenedor">
-            <img id="producto" src="/imgUsers/<%= user.avatar %> ">
+    <div class="main__container">
+      <div class="Contenedor-formulario">
+        <form class="main__form" action="/users/edit/<%= user.id %>?_method=PUT" enctype="multipart/form-data" method="post">
+          <h2>Editar usuario</h2>
+          <h3 class="tituloProducto"><%= user.name %></h3>
+          <div class="img-contenedor-editar">
+            <h3 class="tituloProducto">Imagen</h3>
+            <img id="producto-editar" src="/imgUsers/<%= user.avatar %> ">
           </div>
-          <div class="description">
-            <h2>Editar perfil de, <%= user.name %></h2>
-            <div class="titulo-descripcion">
-                <div class="formulario">
-                    <div class="inputBxUser">
-                        <label for="name">Nombre:</label>
-                        <div class="inputIcon">
-                            <input value="<%= user.name %>"></input>
-                        </div>
-                    </div>
-
-                    <div class="inputBxUser">
-                        <label for="lastName">Apellido:</label>
-                        <div class="inputIcon">
-                            <input value="<%= user.lastName %>"></input>
-                        </div>
-                    </div>
-
-                    <div class="inputBxUser">
-                        <label for="email">Email:</label>
-                        <div class="inputIcon">
-                            <input value="<%= user.email %>"></input>
-                        </div>
-                    </div>
-
-                    <div class="inputBxUser">
-                      <label for="email">Email:</label>
-                      <div class="inputIcon">
-                          <input name="password" placeholder="Ingresar Nueva contraseña"></input>
-                      </div>
-                  </div>
-                </div>
-
-            </div>
-            <div>
-              <button class="button-cesta">
-                <a class="enlaceCarrito">Confirmar Cambios</a>
-              </button>
-            </div>
+          <div class="inputFormulario">
+            <h3 class="tituloProducto">Nickname</h3>
+            <input type="text" class="text-box" id="user" name="user" value="<%= user.user %>">
+            <% if(locals.errors && locals.errors.user ){ %>
+              <p class="text-danger"> * <%= errors.user.msg %>  </p>
+            <% } %>
           </div>
-        </div>
-        </div>
-      </form>
-      </main>
+          <div class="inputFormulario">
+            <h3 class="tituloProducto">Nombre</h3>
+            <input type="text" class="text-box" id="name" name="name" value="<%= user.name %>">
+            <% if(locals.errors && locals.errors.name ){ %>
+              <p class="text-danger"> * <%= errors.name.msg %>  </p>
+            <% } %>
+          </div>
+          <div class="inputFormulario">
+            <h3 class="tituloProducto">Apellido</h3>
+            <input type="text" class="text-box" id="lastName" name="lastName" value="<%= user.lastName %>">
+            <% if(locals.errors && locals.errors.lastName ){ %>
+              <p class="text-danger"> * <%= errors.lastName.msg %>  </p>
+            <% } %>
+          </div>
+          <div class="inputFormulario">
+            <h3 class="tituloProducto">Email</h3>
+            <input type="text" class="text-box" id="email" name="email" value="<%= user.email %>">
+            <% if(locals.errors && locals.errors.email ){ %>
+              <p class="text-danger"> * <%= errors.email.msg %>  </p>
+            <% } %>
+          </div>
+          <div class="inputFormulario">
+            <h3 class="tituloProducto">Contraseña</h3>
+            <input type="text" class="text-box" id="password" name="password">
+            <% if(locals.errors && locals.errors.password ){ %>
+              <p class="text-danger"> * <%= errors.password.msg %>  </p>
+            <% } %>
+          </div>
 
-	<!-- //Container -->
-    <%- include('../partials/footer.ejs') %>
-</body>
-</html>
+          <div class="filePhoto">
+            <label class="labelImagen">Seleccione imagen de perfil</label>
+            <input  type="file" name="avatar" id="avatar">
+            <% if(locals.errors && locals.errors.avatar ){ %>
+              <p class="text-danger"> * <%= errors.avatar.msg %>  </p>
+            <% } %>
+          </div>
+          
+          <button class="editar-form-abm" type="submit">Editar</button>
+        </form>
+        <form action="/users/delete/<%= user.id %>?_method=delete" method="post" style="text-align: center;">
+          <button class="eliminar-form-abm">Eliminar</button>
+        </form>
+      </div>
+          
+    
+      <!-- FOOTER -->
+      <%- include('../partials/footer.ejs') %>
+    
+    </body>
+    
+    </html>

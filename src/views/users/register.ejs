@@ -85,19 +85,17 @@
                             <% } %>
                         </div>
                     </div>
-                    <!--
+                    
                     <div class="inputBx">
-                        <label>Confirmar contraseña</label>
+                        <label>Tipo de Usuario</label>
                         <div class="inputIcon">
-                            <//% if(locals.errors && errors.confirmPassword) {%> 
-                                <input type="password" name="confirmPassword" id="confirmPassword">
-                                <p id="ErrFormulario">* <//%= errors.confirmPassword.msg %></p>
-                            <//% } else {  %>
-                                <input type="password" name="confirmPassword" id="confirmPassword" value="<//%= locals.old ? old.confirmPassword : null %>">
+                            <select name="userType" id="userType">
+                                <option value="1">Administrador</option>
+                                <option value="2">Común</option>
+                            </select>
                         </div>
-                        <//% } %> 
                     </div>
-                    -->
+
                     <div class="inputBx">
                         <div class="inputIcon">
                             <label for="avatar" id="avatarL" class="main__form-upload">Imagen de perfil</label>
