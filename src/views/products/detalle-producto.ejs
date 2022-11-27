@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- HEAD -->
+<%- include('../partials/headProducts.ejs') %>
+
+<body>
+  
+  <!-- HEADER -->
+  <%- include('../partials/header.ejs') %>
+  
+  <div>
+    <img class="banner" src="/img/img-home-banner.jpg">
+  </div>
+  <main>
+    <div class="contenedor">
+      <div class="img-contenedor">
+        <img id="producto" src="/img/<%= product.imagen %> ">
+      </div>
+      <div class="description">
+        <div class="titulo-descripcion">
+          <h3><%= product.name %></h3>
+          <p>Aprovecha uno de los articulos coleccionables mas deseado por todos</p>
+          <a href="#">otro producto de misma coleccion</a>
+          <br>
+          <a href="#">otro producto del mismo autor</a>
+          <br>
+          <button class="button-quiero-coleccion">Si quiero inscribirme en esta coleccion</button>
+        </div>
+        <div class="especificacion">
+          <p><%= product.description %> </p>
+        </div>
+        <div>
+          <button class="button-preventa">PREVENTA</button>
+        </div>
+        <div>
+          <span class="precio-regular">$ <%= product.price %>  </span><span class="precio-oferta">5,99€</span>
+        </div>
+        <div>
+          <button class="button-stock">Si, quiero que me avises cuando haya Stock</button>
+        </div>
+        <div>
+          <button class="button-cesta">
+            <a href="/products/carrito/<%= product.id %> " class="enlaceCarrito">Añadir a la Cesta</a>
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <%- include('../partials/footer.ejs') %>
+
+</body>
+
+</html>

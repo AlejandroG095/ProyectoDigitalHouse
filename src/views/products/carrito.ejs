@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- HEAD -->
+<%- include('../partials/headProducts.ejs') %>
+
+<body>
+
+  <!-- HEADER -->
+  <%- include('../partials/header.ejs') %>
+  
+  <div>
+    <img class="banner" src="/img/img-home-banner.jpg">
+  </div>
+  <main>
+    <div class="main">
+      <div class="contenedor-carrito">
+        
+        <div class="img-contenedor-carrito">
+          <img id="producto" src="/img/<%= product.imagen %>" alt="<%= product.name %>">
+        </div>
+        <div class="description-carrito">
+          <div class="titulo-descripcion-carrito">
+            <h3><%= product.name %></h3>
+            <p>Aprovecha uno de los articulos coleccionables mas deseado por todos</p>
+          </div>
+          <div>
+            <span class="precio-regular">$ <%= product.price %> </span><span class="precio-oferta">5,99€</span>
+            <div class="cantidad-producto">
+              <br>
+              <label for="1">Cantidad: </label>
+              <input type="number" name="1" id="1" min="1">
+              <button class="button-quitar">X</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button class="button-confirmarCompra">Confirmar Compra</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+
+  <!-- <div class="confirmar-compra">
+    <button>Confirmar compra</button>
+  </div> -->
+
+  <!-- FOOTER -->
+  <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>

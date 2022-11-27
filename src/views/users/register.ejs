@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- HEAD -->
+<%- include('../partials/headUsers.ejs') %>
+
+<body>
+    <!-- HEADER -->
+    <%- include('../partials/header.ejs') %>
+    
+    <section class="mainreg">
+        <div class="espacio-imagen">
+            <img src="/img/fondo-reglog7.png">
+        </div>
+        <div class="espacio-formulario">
+            <div class="formulario">
+                <h2>Registro</h2>
+                
+                <form action="/users/register" enctype="multipart/form-data" method="post">
+                    <div class="inputBx">
+                        <label>Usuario</label>
+                        <div class="inputIcon">
+                            <input 
+                            type="text" 
+                            name="user" 
+                            id="user"
+                            value="<%= locals.old ? old.user : '' %>">
+                            <% if(locals.errors && errors.user){%> 
+                                <p id="ErrFormulario">* <%= errors.user.msg %></p>
+                            <% } %>   
+                        </div> 
+                    </div>
+
+                    <div class="inputBx">
+                        <label>Nombre(s)</label>
+                        <div class="inputIcon">
+                            <input 
+                            type="text" 
+                            name="name" 
+                            id="name"
+                            value="<%= locals.old ? old.name : '' %>">
+                            <% if(locals.errors && errors.name) {%> 
+                                <p id="ErrFormulario">* <%= errors.name.msg %></p>
+                            <% } %> 
+                        </div>
+                    </div>
+
+                    <div class="inputBx">
+                        <label>Apellido(s)</label>
+                        <div class="inputIcon"> 
+                            <input 
+                            type="text" 
+                            name="lastName" 
+                            id="lastName"
+                            value="<%= locals.old ? old.lastName : '' %>">
+                            <% if(locals.errors && errors.lastName) {%>
+                                <p id="ErrFormulario">* <%= errors.lastName.msg %></p>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <div class="inputBx">
+                        <label>Correo electrónico</label>
+                        <div class="inputIcon"> 
+                            <input 
+                            type="email" 
+                            name="email" 
+                            id="email"
+                            value="<%= locals.old ? old.email : '' %>">
+                            <% if(locals.errors && errors.email) {%>
+                                <p id="ErrFormulario">* <%= errors.email.msg %></p>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <div class="inputBx">
+                        <label>Contraseña</label>
+                        <div class="inputIcon">
+                            <input 
+                            type="password" 
+                            name="password" 
+                            id="password">
+                            <% if(locals.errors && errors.password) {%> 
+                                <p id="ErrFormulario">* <%= errors.password.msg %></p>
+                            <% } %>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="inputBx">
+                        <label>Confirmar contraseña</label>
+                        <div class="inputIcon">
+                            <//% if(locals.errors && errors.confirmPassword) {%> 
+                                <input type="password" name="confirmPassword" id="confirmPassword">
+                                <p id="ErrFormulario">* <//%= errors.confirmPassword.msg %></p>
+                            <//% } else {  %>
+                                <input type="password" name="confirmPassword" id="confirmPassword" value="<//%= locals.old ? old.confirmPassword : null %>">
+                        </div>
+                        <//% } %> 
+                    </div>
+                    -->
+                    <div class="inputBx">
+                        <div class="inputIcon">
+                            <label for="avatar" id="avatarL" class="main__form-upload">Imagen de perfil</label>
+                        </div>
+                        <input 
+                        type="file" 
+                        name="avatar" 
+                        id="avatar">
+                        <% if(locals.errors && locals.errors.avatar ){ %>
+                            <p id="ErrFormulario"> * <%= errors.avatar.msg %>  </p>
+                        <% } %>
+                    </div>
+                    <div class="inputBx">
+                        <input type="submit" value="Crear cuenta">
+                    </div>
+                    <div class="inputBx">
+                        <p>¿Ya tienes una cuenta? <a href="/users/login">Inicia sesión</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <%- include('../partials/footer.ejs') %>
+    
+</body>
+
+</html>
