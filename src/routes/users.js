@@ -56,10 +56,12 @@ router.put('/edit/:id', authMiddleware, upload.single("avatar"), editUsersValida
 //Listar usuarios
 router.get('/list', authMiddleware, usersController.list);
 //Registrar usuarios en sesion
-router.get('/register/new', authMiddleware, usersController.sessionRegister);
-router.put('/register/new', authMiddleware, usersController.sessionCreate);
+router.get('/register/new', authMiddleware, usersController.sessionRegisterUser);
+router.post('/register/new', authMiddleware, upload.single("avatar"), createUsersValidation, usersController.sessionCreateUser);
 
 //Logout
 router.get('/logout', authMiddleware, usersController.logout);
+//Eliminar
+router.delete('/delete/:id', authMiddleware, usersController.delete);
 
 module.exports = router;

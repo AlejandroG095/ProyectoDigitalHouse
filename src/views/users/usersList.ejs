@@ -36,12 +36,30 @@
                                 <p><%= user.email %></p>
                             </div>
                         </div>
+                        <div class="inputBxUser">
+                            <label for="email">Tipo de usuario:</label>
+                            <div class="inputIcon">                             
+                                <% if(user.userType == 1){ %>
+                                    <p>
+                                      Administrador
+                                    </p>
+                                  <% } else { %>
+                                    <p>
+                                      Común
+                                    </p>
+                                  <% } %>
+                                 
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                <button class="button-cesta">
-                    <a href="/users/edit/<%= user.id %> " class="enlaceCarrito">Editar Perfil</a>
-                </button>
+                <div class="botones">
+                    <button class="button-cesta">
+                        <a href="/users/edit/<%= user.id %> " class="enlaceCarrito">Editar Perfil</a>
+                    </button>
+                    <form action="/users/delete/<%= user.id %>?_method=delete" method="post" style="text-align: center">
+                        <button class="button-cesta-eliminar">Eliminar</button>
+                    </form>
                 </div>
         
         </div>

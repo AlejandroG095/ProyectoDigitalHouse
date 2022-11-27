@@ -148,7 +148,6 @@ main{
 .contenedorUsers{
     background-color: rgba(1000, 1000, 1000, 0.75);
     display: flex;
-    margin: 8%;
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     align-items: center;
     justify-content: space-around;
@@ -156,6 +155,7 @@ main{
     border: 4px solid #2f528f;
     flex-direction: column;
     height: fit-content;
+    /* overflow: scroll; */
     justify-content: unset;
 }
 
@@ -212,6 +212,8 @@ main{
 
 .botones{
     text-align: center;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .button-quiero-coleccion{
@@ -317,7 +319,7 @@ p{
 }
 
 .button-cesta{
-    background-color: black;
+    background-color: rgb(52, 10, 158);
     color: white;
     font-family: 'Courier New', Courier, monospace;
     font-weight: 900;
@@ -325,12 +327,27 @@ p{
     margin-top: 10px;
     padding: 10px;
     font-size: larger;
+    width: 30%;
 
+}
+.button-cesta-eliminar{
+    background-color: rgb(52, 10, 158);
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: larger;
 }
 
 .button-cesta:hover{
     background-color: blueviolet;
     color: yellow;
+}
+.button-cesta-eliminar:hover{
+    background-color: blueviolet;
+    cursor: pointer;
 }
 
 .enlaceCarrito {
@@ -427,6 +444,11 @@ header {
         flex-direction: row;
         padding: 10px;
     }
+    .contenedorUsers{
+        margin-top: 10%;
+        flex-direction: row;
+        padding: 10px;
+    }
 
     #producto{
         width: 80%;
@@ -444,6 +466,7 @@ header {
     .menu {
         display: none;
     }
+    
 }
 
 @media (max-width: 507px) {

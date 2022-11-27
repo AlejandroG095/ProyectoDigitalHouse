@@ -35,6 +35,9 @@ app.use(express.urlencoded({ extended: false }));
 //Recursos estáticos:
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Llamado de la ruta de la api de users
+const apiUsersRouter = require('./src/routes/api/users');
+
 
 // app.use(logger('dev'));
 // app.use(cookieParser());
@@ -42,12 +45,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /* RUTAS: */
 app.use('/', indexRouter);
-
 //Rutas Usuarios
 app.use('/users', usersRouter);
-
 //Rutas products
 app.use('/products', productsRouter);
+
+/* RUTAS API: */
+app.use('/api/users', apiUsersRouter);
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

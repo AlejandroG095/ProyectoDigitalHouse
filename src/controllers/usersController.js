@@ -110,7 +110,8 @@ const usersController = {
           lastName: req.body.lastName,
           email: req.body.email,
           password: bcryptjs.hashSync(req.body.password, 10),
-          avatar: req.file.filename
+          avatar: req.file.filename,
+          userType: req.body.userType
         });
         
         res.redirect('/users/login');
@@ -151,7 +152,8 @@ const usersController = {
         lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password ? bcryptjs.hashSync(req.body.password, 10) : userToUpdate.password,
-        avatar: req.file ? req.file.filename : userToUpdate.avatar
+        avatar: req.file ? req.file.filename : userToUpdate.avatar,
+        userType: req.body.userType
       }, {
         where: {
           id: req.params.id
@@ -165,8 +167,6 @@ const usersController = {
       })
       delete userToUpdate.password;
       req.session.userLogged = userToUpdate;
-      
-      
       res.redirect('/users/profile');
     }
   },
@@ -176,12 +176,58 @@ const usersController = {
     res.render('./users/usersList', {users})
   },
   //Vista para registrar usuaios en sesion
-  sessionRegister: async (req, res) => {
-    res.render('./users/register/newUser');
+  sessionRegisterUser: async (req, res) => {
+    res.render('./users/newUser');
   },
   //Logica para registrar usuarios en sesion
-  sessionCreate: async (req, res) => {
-
+  sessionCreateUser: async (req, res) => {
+    // requerir el validador
+    const resultValidation = validationResult(req);
+    //Si hay errores en el envio delo formulario
+    if (!resultValidation.isEmpty()) {
+      let errors = resultValidation.mapped();
+      //Si no hay un error de imagen:
+      if (!errors.avatar) {
+        //si existe un archivo de imagen de perfil lo borramos
+        if (req.file && fs.existsSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename))) {
+          fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename));
+        }
+      }
+      //renderizamos nuevamente el formulario con los errores presentados y la persistencia de los datos enviados
+      res.render('./users/newUser', {
+        errors: resultValidation.mapped(),
+        old: req.body
+      })
+    } else {
+      //miramos si el email usuario esta registrado en la bd 
+      let userInDb = await db.User.findOne({
+        where: {
+          email: req.body.email
+        }
+      })
+      if (userInDb) {
+        return res.render('./users/newUser', {
+          errors: {
+            email: {
+              msg: 'Este email ya está registrado'
+            }
+          },
+          old: req.body
+        })
+      } else {
+        // caso contrario, utilizamos los campos del formulario para crear el nuevo usuario
+        await db.User.create({
+          user: req.body.user,
+          name: req.body.name,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          password: bcryptjs.hashSync(req.body.password, 10),
+          avatar: req.file.filename,
+          userType: req.body.userType
+        });
+        res.redirect('/users/list');
+      }
+    }
   },
   //Cerrar sesion
   logout: (req, res) => {
@@ -201,7 +247,7 @@ const usersController = {
         id: req.params.id
       }
     });
-    res.redirect('/');
+    res.redirect('/users/list');
   }
 }
 

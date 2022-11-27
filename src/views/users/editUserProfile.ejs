@@ -52,7 +52,13 @@
               <p class="text-danger"> * <%= errors.password.msg %>  </p>
             <% } %>
           </div>
-
+          <div class="inputFormulario">
+            <h3 class="tituloProducto">Tipo de Usuario</h3>
+            <select name="userType" id="userType">
+              <option value="1">Administrador</option>
+              <option value="2">Común</option>
+            </select>
+          </div>
           <div class="filePhoto">
             <label class="labelImagen">Seleccione imagen de perfil</label>
             <input  type="file" name="avatar" id="avatar">
