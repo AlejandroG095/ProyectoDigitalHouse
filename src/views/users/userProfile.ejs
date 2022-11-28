@@ -62,14 +62,17 @@
               <div>
                 <div class="botones">
                   <button class="button-cesta">
-                    <a href="/users/edit/<%= user.id %> " class="enlaceCarrito">Editar Perfil</a>
+                    <a href="/users/profile/edit" class="enlaceCarrito">Editar Perfil</a>
                   </button>
-                  <button class="button-cesta">
-                    <a href="/users/register/new" class="enlaceCarrito">Crear usuario</a>
-                  </button>
-                  <button class="button-cesta">
-                    <a href="/users/list" class="enlaceCarrito">Listar usuarios</a>
-                  </button>
+                  <% if (locals.userLogged.userType == 1) { %>
+                    <button class="button-cesta">
+                      <a href="/users/register/new" class="enlaceCarrito">Crear usuario</a>
+                    </button>
+                    <button class="button-cesta">
+                      <a href="/users/list" class="enlaceCarrito">Listar usuarios</a>
+                    </button>
+                  <% } %>
+                  
                 </div>
               </div>
             </div>

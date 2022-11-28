@@ -9,6 +9,7 @@ const usersController = require('../controllers/usersController');
 const { createUsersValidation, editUsersValidation } = require('../validations/usersValidation');
 const guestMiddleware = require('../middlewares/guestMiddleware');
 const authMiddleware = require('../middlewares/authMiddleware');
+const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
 
 //configuramos multer
 const storage = multer.diskStorage({
@@ -50,18 +51,20 @@ router.get('/login', guestMiddleware, usersController.login);
 router.post('/login', usersController.loginProcess);
 //Perfil de usuario
 router.get('/profile', authMiddleware, usersController.profile);
-//Editar Perfil
-router.get('/edit/:id', authMiddleware, usersController.editUser);
-router.put('/edit/:id', authMiddleware, upload.single("avatar"), editUsersValidation, usersController.update);
+//Editar Usuario
+router.get('/edit/:id', authMiddleware, isAdminMiddleware, usersController.editUser);//debe ser admin
+router.put('/edit/:id', authMiddleware, isAdminMiddleware, upload.single("avatar"), editUsersValidation, usersController.update);//debe ser admin
+//Editar desde perfil
+router.get('/profile/edit', authMiddleware, usersController.editUserFromProfile);
+router.put('/profile/edit', authMiddleware, upload.single("avatar"), editUsersValidation, usersController.updateFromProfile);
 //Listar usuarios
-router.get('/list', authMiddleware, usersController.list);
+router.get('/list', authMiddleware, isAdminMiddleware, usersController.list);
 //Registrar usuarios en sesion
-router.get('/register/new', authMiddleware, usersController.sessionRegisterUser);
-router.post('/register/new', authMiddleware, upload.single("avatar"), createUsersValidation, usersController.sessionCreateUser);
-
+router.get('/register/new', authMiddleware, isAdminMiddleware, usersController.sessionRegisterUser);
+router.post('/register/new', authMiddleware, isAdminMiddleware, upload.single("avatar"), createUsersValidation, usersController.sessionCreateUser);
 //Logout
 router.get('/logout', authMiddleware, usersController.logout);
 //Eliminar
-router.delete('/delete/:id', authMiddleware, usersController.delete);
+router.delete('/delete/:id', authMiddleware, isAdminMiddleware, usersController.delete);
 
 module.exports = router;

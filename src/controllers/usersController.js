@@ -110,8 +110,7 @@ const usersController = {
           lastName: req.body.lastName,
           email: req.body.email,
           password: bcryptjs.hashSync(req.body.password, 10),
-          avatar: req.file.filename,
-          userType: req.body.userType
+          avatar: req.file.filename
         });
         
         res.redirect('/users/login');
@@ -121,7 +120,7 @@ const usersController = {
   //Vista editar usuarios
   editUser: async (req, res) => {
     let UserToEdit = await db.User.findByPk(req.params.id);
-    res.render('./users/editUserProfile', {user: UserToEdit});
+    res.render('./users/edit', {user: UserToEdit});
   },
   //Actualizar usuarios
   update: async (req,res) => {
@@ -135,7 +134,7 @@ const usersController = {
               fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename));
           }
       }
-      res.render("./users/editUserProfile", {
+      res.render("./users/edit", {
           errors: resultValidation.mapped(),
           old: req.body,
           user: userToUpdate
@@ -159,10 +158,54 @@ const usersController = {
           id: req.params.id
         }
       })
+      res.redirect('/users/list');
+    }
+  },
+  //editar desde perfil vista
+  editUserFromProfile: async function (req, res){
+    let UserToEdit = await db.User.findByPk(req.session.userLogged.id);
+    res.render('./users/editProfile', {user: UserToEdit});
+  },
+  //editar desde perfil logica
+  updateFromProfile: async (req,res) => {
+    const resultValidation = validationResult(req);
+    let userToUpdate = await db.User.findByPk(req.session.userLogged.id);
+    if (!resultValidation.isEmpty()) {
+      let errors = resultValidation.mapped();
+      //Si no hay un error de imagen:
+      if (!errors.avatar) {
+          if (req.file && fs.existsSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename))) {
+              fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename));
+          }
+      }
+      res.render("./users/editProfile", {
+          errors: resultValidation.mapped(),
+          old: req.body,
+          user: userToUpdate
+      })
+    } else {
+      //eliminar la imagen cuando cambie
+      if (req.file) {
+        //borramos del proyecto la imagen adjunta al objeto:
+        fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", userToUpdate.avatar));
+      }
+        userToUpdate = await db.User.update({
+        user: req.body.user,
+        name: req.body.name,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password ? bcryptjs.hashSync(req.body.password, 10) : userToUpdate.password,
+        avatar: req.file ? req.file.filename : userToUpdate.avatar,
+        userType: userToUpdate.userType
+      }, {
+        where: {
+          id: req.session.userLogged.id
+        }
+      })
       //Mandamos el usuario con los nuevos datos a sesion
       userToUpdate = await db.User.findOne({
         where: {
-          id: req.params.id
+          id: req.session.userLogged.id
         }
       })
       delete userToUpdate.password;

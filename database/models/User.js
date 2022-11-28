@@ -34,7 +34,8 @@ module.exports = function(sequelize, DataTypes){
         },
         userType:{
             type: DataTypes.INTEGER(1),
-            allowNull: false
+            allowNull: false,
+            defaultValue: 2
         }
     }
 
