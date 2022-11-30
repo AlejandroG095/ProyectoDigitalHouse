@@ -22,8 +22,10 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ 
-    storage: storage, 
+    storage: storage,
+    //limits: { fileSize: 1048576 },
     fileFilter: (req, file, cb)=>{
+        
         const extensionesAceptadas = ['.jpg', '.png', '.jpeg'];
 
         const info = path.extname(file.originalname)
@@ -37,7 +39,10 @@ const upload = multer({
         //------------------------------//
 
         cb(null, result);
-    } 
+        
+    }
+    
+
 });
 
 
@@ -52,7 +57,7 @@ router.post('/login', usersController.loginProcess);
 //Perfil de usuario
 router.get('/profile', authMiddleware, usersController.profile);
 //Editar Usuario
-router.get('/edit/:id', authMiddleware, isAdminMiddleware, usersController.editUser);//debe ser admin
+router.get('/edit/:id', authMiddleware, isAdminMiddleware, usersController.editUser);
 router.put('/edit/:id', authMiddleware, isAdminMiddleware, upload.single("avatar"), editUsersValidation, usersController.update);//debe ser admin
 //Editar desde perfil
 router.get('/profile/edit', authMiddleware, usersController.editUserFromProfile);

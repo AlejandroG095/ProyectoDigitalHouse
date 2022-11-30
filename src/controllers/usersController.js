@@ -16,7 +16,7 @@ const usersController = {
   },
   //Logica del inicio de sesion
   loginProcess: async (req, res, next) => {
-    //verificamos que el email ingresadp exista en la base de datos
+    //verificamos que el email ingresad exista en la base de datos
     let userToLogin = await db.User.findOne({
       where: {
         email: req.body.email
@@ -75,7 +75,7 @@ const usersController = {
     if (!resultValidation.isEmpty()) {
       let errors = resultValidation.mapped();
       //Si no hay un error de imagen:
-      if (!errors.avatar) {
+      if (!errors.avatar || (req.file.size>(1024*1024))) {
         //si existe un archivo de imagen de perfil lo borramos
         if (req.file && fs.existsSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename))) {
           fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename));
@@ -128,8 +128,9 @@ const usersController = {
     let userToUpdate = await db.User.findByPk(req.params.id);
     if (!resultValidation.isEmpty()) {
       let errors = resultValidation.mapped();
+      const tamanio = req.file ? req.file.size<=(1024*1024) : false;
       //Si no hay un error de imagen:
-      if (!errors.avatar) {
+      if (!errors.avatar || tamanio) {
           if (req.file && fs.existsSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename))) {
               fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename));
           }
@@ -144,6 +145,25 @@ const usersController = {
       if (req.file) {
         //borramos del proyecto la imagen adjunta al objeto:
         fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", userToUpdate.avatar));
+      }
+      if (userToUpdate.email != req.body.email) {
+        //miramos si el email usuario esta registrado en la bd 
+        let userInDb = await db.User.findOne({
+          where: {
+            email: req.body.email
+          }
+        })
+        if (userInDb) {
+          return res.render('./users/edit', {
+            errors: {
+              email: {
+                msg: 'Este email ya está registrado'
+              }
+            },
+            old: req.body,
+            user: userToUpdate
+          })
+        }
       }
         userToUpdate = await db.User.update({
         user: req.body.user,
@@ -173,7 +193,8 @@ const usersController = {
     if (!resultValidation.isEmpty()) {
       let errors = resultValidation.mapped();
       //Si no hay un error de imagen:
-      if (!errors.avatar) {
+      const tamanio = req.file != null ? req.file.size<=(1024*1024) : false;
+      if (!errors.avatar || tamanio) {
           if (req.file && fs.existsSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename))) {
               fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename));
           }
@@ -188,6 +209,25 @@ const usersController = {
       if (req.file) {
         //borramos del proyecto la imagen adjunta al objeto:
         fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", userToUpdate.avatar));
+      }
+      if (userToUpdate.email != req.body.email) {
+        //miramos si el email usuario esta registrado en la bd 
+        let userInDb = await db.User.findOne({
+          where: {
+            email: req.body.email
+          }
+        })
+        if (userInDb) {
+          return res.render('./users/editProfile', {
+            errors: {
+              email: {
+                msg: 'Este email ya está registrado'
+              }
+            },
+            old: req.body,
+            user: userToUpdate
+          })
+        }
       }
         userToUpdate = await db.User.update({
         user: req.body.user,
@@ -230,7 +270,7 @@ const usersController = {
     if (!resultValidation.isEmpty()) {
       let errors = resultValidation.mapped();
       //Si no hay un error de imagen:
-      if (!errors.avatar) {
+      if (!errors.avatar || (req.file.size>(1024*1024))) {
         //si existe un archivo de imagen de perfil lo borramos
         if (req.file && fs.existsSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename))) {
           fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename));

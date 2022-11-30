@@ -31,10 +31,17 @@ module.exports = {
             .withMessage('Campo obligatorio imagen')
             .bail()
             .custom(function(value, {req}){
+                if(req.file.size > (1024*1024)){
+                    throw new Error('El tamaño de la imagen excede 1MB')
+                }
+                return true;
+            })
+            .bail()
+            .custom(function(value, {req}){
                 const extensionesAceptadas = ['.jpg', '.png', '.jpeg'];
                 const extension = path.extname(req.file.originalname);
                 return extensionesAceptadas.includes(extension);
-            }).withMessage('Imagen invalida, debe de ser .jpg .png .jpeg'),
+            }).withMessage('Imagen invalida, debe de ser .jpg .png .jpeg')
     ],
     editUsersValidation: [
         body('user')
@@ -53,6 +60,16 @@ module.exports = {
             .isEmail()
             .withMessage('Debes de escribir un formato de correo Valido'),
         body('avatar')
+        .if(function(value, {req}){
+            return req.file;
+        })
+        .custom(function(value, {req}){
+            if(req.file.size > (1024*1024)){
+                throw new Error('El tamaño de la imagen excede 1MB')
+            }
+            return true;
+        })
+        .bail()
         .custom(function(value, {req}){
             if(req.file){
                 const extensionesAceptadas = ['.jpg', '.png', '.jpeg'];
