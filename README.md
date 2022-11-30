@@ -17,7 +17,7 @@ Lista de requerimientos:
 -	Un usuario administrador debe poder modificar los datos de un usuario común. 
 -	Un usuario administrador visualiza la cantidad de usuarios registrados al momento (consumir por API).
 -	Deben realizarse las validaciones pertinentes de todos los contenidos (desde frontend y backend).
--	Deben validarse que cualquier imagen que sea mayor a 1 MB de tamaño no pueda ser almacenada. (preguntar cómo)
+-	Deben validarse que cualquier imagen que sea mayor a 1 MB de tamaño no pueda ser almacenada.
 -	Realizar botón de cierre de sesión para que se elimine la sesión del usuario en línea.
 > Consideraciones para el proyecto:
 -	Utilizar arquitectura MVC.
