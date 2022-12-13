@@ -75,7 +75,7 @@ const usersController = {
     if (!resultValidation.isEmpty()) {
       let errors = resultValidation.mapped();
       //Si no hay un error de imagen:
-      if (!errors.avatar || (req.file.size>(1024*1024))) {
+      if (!errors.avatar  || (req.file && req.file.size>(1024*1024))) {
         //si existe un archivo de imagen de perfil lo borramos
         if (req.file && fs.existsSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename))) {
           fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename));
@@ -270,7 +270,7 @@ const usersController = {
     if (!resultValidation.isEmpty()) {
       let errors = resultValidation.mapped();
       //Si no hay un error de imagen:
-      if (!errors.avatar || (req.file.size>(1024*1024))) {
+      if (!errors.avatar || (req.file && req.file.size>(1024*1024))) {
         //si existe un archivo de imagen de perfil lo borramos
         if (req.file && fs.existsSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename))) {
           fs.unlinkSync(path.join(__dirname, "../../public/imgUsers/", req.file.filename));
