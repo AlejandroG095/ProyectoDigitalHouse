@@ -122,12 +122,6 @@ header {
     width: 50%;
 }
 
-#ErrFormulario{
-    color: red;
-    font-weight: 700;
-    margin: 3px;
-}
-
 h2 {
     text-align: center;
     font-family: "Comic Sans MS", "Comic Sans", cursive;
@@ -142,7 +136,7 @@ h2 {
     justify-content: center;
 }
 .inputBx {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .inputBx label {
     color: #2a7194;
@@ -251,6 +245,7 @@ input[type="submit"]:hover{
     color: #03264C;
     font-size: 16px;
 }
+
 .main__form-upload {
     border-radius: 30px;
     padding: 10px 20px;
@@ -273,6 +268,11 @@ input[type="submit"]:hover{
     font-weight: 400;
     font-size: 18px;
     font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+#error{
+    color: red;
+    font-weight: 700;
+    margin: 3px;
 }
 /* iconos al chequear respuestas validas en el formulario
 .inputBx .valid-value {
@@ -301,7 +301,32 @@ circle-check {
     display: none;
 }
 */
-
+.ErrFormulario{
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    color: red;
+    font-weight: 700;
+    margin-top: 3px;
+}
+.warning__title{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-size: 2.5rem;
+}
+.warning__confirm{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    text-align: center;
+    border-radius: 30px;
+}
+.inputBx .valid-value {
+    border: 1px solid #94cb91;
+}
+.inputBx .invalid-value {
+    border: 1px solid #f11e77;
+}
 /* navegacion moviles bajas resoluciones */
 @media (min-width: 350px) {
     .hamburger-button {

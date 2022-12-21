@@ -21,7 +21,9 @@
                         <div class="inputIcon">
                             <input type="text" name="email" id="email" class="">
                             <% if (locals.errors && errors.email) { %>
-                                <p id="ErrFormulario">* <%= errors.email.msg %></p>
+                                <div class="ErrFormulario">
+                                    <%= errors.email.msg %>
+                                </div>
                             <% } %>
                         </div>
                     </div>

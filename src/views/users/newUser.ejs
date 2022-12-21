@@ -16,61 +16,87 @@
             <div class="formulario">
                 <h2>Crear Usuario</h2>
                 
-                <form action="/users/register/new" enctype="multipart/form-data" method="post">
+                <form class="form" action="/users/register/new" enctype="multipart/form-data" method="post">
                     <div class="inputBx">
                         <label>Usuario</label>
                         <div class="inputIcon">
-                            <input 
+                            <input class="inputUser"
                             type="text" 
                             name="user" 
                             id="user"
-                            value="<%= locals.old ? old.user : '' %>">
                             <% if(locals.errors && errors.user){%> 
-                                <p id="ErrFormulario">* <%= errors.user.msg %></p>
-                            <% } %>   
-                        </div> 
+                                class = "invalid-value"
+                            <% } %>
+                            value="<%= locals.old ? old.user : null %>">
+                        </div>
+                        <% if(locals.errors && errors.user){%>
+                            <div class="ErrFormulario">
+                                <%= errors.user.msg %>
+                            </div>
+                        <% } %>
+                        <small class="ErrFormulario" id="userError"></small> 
                     </div>
 
                     <div class="inputBx">
                         <label>Nombre(s)</label>
                         <div class="inputIcon">
-                            <input 
+                            <input class="inputName"
                             type="text" 
                             name="name" 
                             id="name"
-                            value="<%= locals.old ? old.name : '' %>">
-                            <% if(locals.errors && errors.name) {%> 
-                                <p id="ErrFormulario">* <%= errors.name.msg %></p>
+                            
+                            <% if(locals.errors && errors.name) {%>
+                                class = "invalid-value"
                             <% } %> 
+                            value="<%= locals.old ? old.name : '' %>">
                         </div>
+                        <% if(locals.errors && errors.name){%>
+                            <div class="ErrFormulario">
+                                 <%= errors.name.msg %>
+                            </div>
+                        <% } %>
+                        <small class="ErrFormulario" id="nameError"></small> 
                     </div>
 
                     <div class="inputBx">
                         <label>Apellido(s)</label>
                         <div class="inputIcon"> 
-                            <input 
+                            <input class="inputLastName"
                             type="text" 
                             name="lastName" 
                             id="lastName"
-                            value="<%= locals.old ? old.lastName : '' %>">
+                            
                             <% if(locals.errors && errors.lastName) {%>
-                                <p id="ErrFormulario">* <%= errors.lastName.msg %></p>
+                                class="invalid-value"
                             <% } %>
+                            value="<%= locals.old ? old.lastName : '' %>">
                         </div>
+                        <% if(locals.errors && errors.lastName){%>
+                            <div class="ErrFormulario">
+                                <%= errors.lastName.msg %>
+                            </div>
+                        <% } %>
+                        <small class="ErrFormulario" id="lastNameError"></small>
                     </div>
 
                     <div class="inputBx">
                         <label>Correo electrónico</label>
                         <div class="inputIcon"> 
-                            <input 
+                            <input class="inputEmail"
                             type="email" 
                             name="email" 
                             id="email"
-                            value="<%= locals.old ? old.email : '' %>">
                             <% if(locals.errors && errors.email) {%>
-                                <p id="ErrFormulario">* <%= errors.email.msg %></p>
+                                class = "invalid-value"
                             <% } %>
+                            value="<%= locals.old ? old.email : '' %>">
                         </div>
+                        <% if(locals.errors && errors.email) {%>
+                            <div class="ErrFormulario">
+                                <%= errors.email.msg %>
+                            </div>
+                        <% } %>
+                        <small class="ErrFormulario" id="emailError"></small>
                     </div>
 
                     <div class="inputBx">
@@ -81,7 +107,9 @@
                             name="password" 
                             id="password">
                             <% if(locals.errors && errors.password) {%> 
-                                <p id="ErrFormulario">* <%= errors.password.msg %></p>
+                                <div class="ErrFormulario">
+                                    <%= errors.password.msg %>
+                                </div>
                             <% } %>
                         </div>
                     </div>
@@ -105,7 +133,9 @@
                         name="avatar" 
                         id="avatar">
                         <% if(locals.errors && locals.errors.avatar ){ %>
-                            <p id="ErrFormulario"> * <%= errors.avatar.msg %>  </p>
+                            <div class="ErrFormulario">
+                                <%= errors.avatar.msg %>
+                            </div>
                         <% } %>
                     </div>
                     <div class="inputBx">
@@ -118,6 +148,7 @@
 
     <!-- FOOTER -->
     <%- include('../partials/footer.ejs') %>
+    <script src="/js/userRegisterValidation.js"></script>
     
 </body>
 
